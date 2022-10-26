@@ -1,3 +1,0 @@
-[submodule "RestApiTest"]
-	path = RestApiTest
-	url = https://gitlab.com/ntnu-dcst2002/todo-api-v2-with-tests.git
