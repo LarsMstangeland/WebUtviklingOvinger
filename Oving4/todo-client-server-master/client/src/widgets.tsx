@@ -35,10 +35,10 @@ export class Row extends Component {
  *
  * Properties: width, right
  */
-export class Column extends Component<{ width?: number; right?: boolean }> {
+export class Column extends Component<{ width?: number; right?: boolean, border?: number}> {
   render() {
     return (
-      <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
+      <div className={'col' + (this.props.width ? '-' + this.props.width : '')} style={{border: this.props.border? this.props.border+"px solid black": '' }}>
         <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
       </div>
     );

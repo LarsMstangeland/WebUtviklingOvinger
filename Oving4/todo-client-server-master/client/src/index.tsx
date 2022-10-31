@@ -6,6 +6,7 @@ import taskService, { Task } from './task-service';
 
 class TaskList extends Component {
   tasks: Task[] = [];
+  checkboxValue: boolean = false;
 
   render() {
     return (
@@ -13,6 +14,24 @@ class TaskList extends Component {
         {this.tasks.map((task) => (
           <Row key={task.id}>
             <Column>{task.title}</Column>
+
+            <Column>
+              <Form.Checkbox checked={this.checkboxValue} onChange={(event) => {
+                event.target.checked? this.checkboxValue = false: this.checkboxValue = true
+              }}></Form.Checkbox>
+            </Column>
+
+
+            <Column>
+              <Button.Danger 
+                onClick={
+                  () => {
+
+                  
+                }}>
+                  X
+              </Button.Danger>
+            </Column>
           </Row>
         ))}
       </Card>
