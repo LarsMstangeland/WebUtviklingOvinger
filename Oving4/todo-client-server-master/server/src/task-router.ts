@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import taskService from './task-service';
 
 /**
@@ -39,5 +39,15 @@ router.delete('/tasks/:id', (request, response) => {
     .then((_result) => response.send())
     .catch((error) => response.status(500).send(error));
 });
+
+router.patch('/tasks/:id', (request, response) => {
+  const data = request.body
+  console.log("router done: " + data.done)
+  taskService
+    .updateDone(Number(request.params.id), Boolean(data.done))
+    .then((_result) => response.send("test"))
+    .catch((error) => response.status(500).send(error))
+})
+
 
 export default router;

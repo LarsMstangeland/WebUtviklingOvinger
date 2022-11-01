@@ -12,24 +12,28 @@ class TaskList extends Component {
     return (
       <Card title="Tasks">
         {this.tasks.map((task) => (
+
           <Row key={task.id}>
             <Column>{task.title}</Column>
 
             <Column>
-              <Form.Checkbox checked={this.checkboxValue} onChange={(event) => {
-                event.target.checked? this.checkboxValue = false: this.checkboxValue = true
+
+              <Form.Checkbox checked={task.done} onChange={() => {
+                taskService.updateDone(task.id, !task.done).then(() => {
+                  this.mounted();
+                })
+
               }}></Form.Checkbox>
             </Column>
 
 
             <Column>
-              <Button.Danger 
-                onClick={
-                  () => {
-
-                  
+              <Button.Danger small={true}
+                onClick={() => {
+                  taskService.delete(task.id).then(()=>
+                  this.mounted());
                 }}>
-                  X
+                  x
               </Button.Danger>
             </Column>
           </Row>

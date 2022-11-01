@@ -35,6 +35,8 @@ export class Row extends Component {
  *
  * Properties: width, right
  */
+
+//added border propertie to column
 export class Column extends Component<{ width?: number; right?: boolean, border?: number}> {
   render() {
     return (

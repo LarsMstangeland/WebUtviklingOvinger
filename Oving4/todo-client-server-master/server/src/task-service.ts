@@ -28,7 +28,6 @@ class TaskService {
     return new Promise<Task[]>((resolve, reject) => {
       pool.query('SELECT * FROM Tasks', [], (error, results: RowDataPacket[]) => {
         if (error) return reject(error);
-
         resolve(results as Task[]);
       });
     });
@@ -58,6 +57,15 @@ class TaskService {
         if (error) return reject(error);
         if (results.affectedRows == 0) reject(new Error('No row deleted'));
 
+        resolve();
+      });
+    });
+  }
+
+  updateDone(id: number, done: Boolean){
+    return new Promise<void>((resolve, reject) => {
+      pool.query('UPDATE Tasks SET done=? WHERE id=?', [done, id], (error, results: ResultSetHeader) => {
+        if(error) return reject(error)
         resolve();
       });
     });
