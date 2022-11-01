@@ -6,6 +6,7 @@ export type Task = {
   id: number;
   title: string;
   done: boolean;
+  description: string;
 };
 
 class TaskService {
@@ -28,12 +29,23 @@ class TaskService {
    *
    * Resolves the newly created task id.
    */
-  create(title: string) {
+  create(title: string, description: string) {
     return axios
-      .post<{ id: number }>('/tasks', { title: title })
+      .post<{ id: number }>('/tasks', { title: title, description: description })
       .then((response) => response.data.id);
   }
+
+  delete(id: number){
+    return axios.delete('/tasks/'+id).then((response) => response.data)
+  }
+
+  update(task:Task){
+    return axios.patch('/tasks/'+task.id, task).then((response) => response.data)
+  }
+
 }
+
+
 
 const taskService = new TaskService();
 export default taskService;

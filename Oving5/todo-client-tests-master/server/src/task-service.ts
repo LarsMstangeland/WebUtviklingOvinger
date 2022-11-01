@@ -5,6 +5,7 @@ export type Task = {
   id: number;
   title: string;
   done: boolean;
+  description: string;
 };
 
 class TaskService {
@@ -39,11 +40,10 @@ class TaskService {
    *
    * Resolves the newly created task id.
    */
-  create(title: string) {
+  create(title: string, description: string) {
     return new Promise<number>((resolve, reject) => {
-      pool.query('INSERT INTO Tasks SET title=?', [title], (error, results: ResultSetHeader) => {
+      pool.query('INSERT INTO Tasks SET title=?, description=?', [title,description], (error, results: ResultSetHeader) => {
         if (error) return reject(error);
-
         resolve(results.insertId);
       });
     });
@@ -57,7 +57,15 @@ class TaskService {
       pool.query('DELETE FROM Tasks WHERE id = ?', [id], (error, results: ResultSetHeader) => {
         if (error) return reject(error);
         if (results.affectedRows == 0) return reject(new Error('No row deleted'));
+        resolve();
+      });
+    });
+  }
 
+  update(task:Task){
+    return new Promise<void>((resolve, reject) => {
+      pool.query('UPDATE Tasks SET done=?, description=? WHERE id=?', [task.done, task.description, task.id], (error, results: ResultSetHeader) => {
+        if(error) return reject(error)
         resolve();
       });
     });

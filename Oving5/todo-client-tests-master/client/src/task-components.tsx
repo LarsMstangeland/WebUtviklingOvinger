@@ -42,7 +42,7 @@ export class TaskList extends Component {
  * Renders a specific task.
  */
 export class TaskDetails extends Component<{ match: { params: { id: number } } }> {
-  task: Task = { id: 0, title: '', done: false };
+  task: Task = { id: 0, title: '', done: false, description: '' };
 
   render() {
     return (
@@ -54,6 +54,7 @@ export class TaskDetails extends Component<{ match: { params: { id: number } } }
           </Row>
           <Row>
             <Column width={2}>Description:</Column>
+            <Column>{this.task.description}</Column>
           </Row>
           <Row>
             <Column width={2}>Done:</Column>
@@ -83,7 +84,7 @@ export class TaskDetails extends Component<{ match: { params: { id: number } } }
  * Renders form to edit a specific task.
  */
 export class TaskEdit extends Component<{ match: { params: { id: number } } }> {
-  task: Task = { id: 0, title: '', done: false };
+  task: Task = { id: 0, title: '', done: false, description: '' };
 
   render() {
     return (
@@ -106,7 +107,14 @@ export class TaskEdit extends Component<{ match: { params: { id: number } } }> {
               <Form.Label>Description:</Form.Label>
             </Column>
             <Column>
-              <Form.Textarea value="" onChange={() => {}} rows={10} disabled />
+              <Form.Textarea 
+                type="text"
+                value={this.task.description} 
+                onChange={(event) => {
+                  this.task.description = event.currentTarget.value
+                }} 
+                rows={10} 
+                />
             </Column>
           </Row>
           <Row>
@@ -121,10 +129,17 @@ export class TaskEdit extends Component<{ match: { params: { id: number } } }> {
         </Card>
         <Row>
           <Column>
-            <Button.Success onClick={() => Alert.info('Not yet implemented')}>Save</Button.Success>
+            <Button.Success onClick={() => 
+              taskService.update(this.task).then(() => history.push("/tasks"))
+            }
+            
+            >Save</Button.Success>
           </Column>
           <Column right>
-            <Button.Danger onClick={() => Alert.info('Not yet implemented')}>Delete</Button.Danger>
+            <Button.Danger onClick={() => 
+              taskService.delete(this.task.id).then(() => history.push('/tasks'))
+            }
+            >Delete</Button.Danger>
           </Column>
         </Row>
       </>
@@ -144,6 +159,7 @@ export class TaskEdit extends Component<{ match: { params: { id: number } } }> {
  */
 export class TaskNew extends Component {
   title = '';
+  description = '';
 
   render() {
     return (
@@ -166,14 +182,20 @@ export class TaskNew extends Component {
               <Form.Label>Description:</Form.Label>
             </Column>
             <Column>
-              <Form.Textarea value="" onChange={() => {}} rows={10} disabled />
+              <Form.Textarea 
+              value={this.description} 
+              onChange={(event) => {
+                this.description = event.currentTarget.value
+              }} 
+              rows={10} 
+              />
             </Column>
           </Row>
         </Card>
         <Button.Success
           onClick={() => {
             taskService
-              .create(this.title)
+              .create(this.title, this.description)
               .then((id) => history.push('/tasks/' + id))
               .catch((error) => Alert.danger('Error creating task: ' + error.message));
           }}

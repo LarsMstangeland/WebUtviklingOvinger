@@ -56,4 +56,31 @@ describe('Alert tests', () => {
       done();
     });
   });
+
+
+  test('Open 3 alert components', () => {
+
+    const wrapper1 = shallow(
+
+      <div>
+      <Alert>AW</Alert>
+      </div>
+    )
+    const wrapper2 = shallow(
+
+      <div>
+      <Alert>AW</Alert>
+      </div>
+    )
+    const wrapper3 = shallow(
+
+      <div>
+      <Alert>AW</Alert>
+      </div>
+    )
+
+
+  })
+
+
 });

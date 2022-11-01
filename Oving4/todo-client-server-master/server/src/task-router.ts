@@ -42,7 +42,6 @@ router.delete('/tasks/:id', (request, response) => {
 
 router.patch('/tasks/:id', (request, response) => {
   const data = request.body
-  console.log("router done: " + data.done)
   taskService
     .updateDone(Number(request.params.id), Boolean(data.done))
     .then((_result) => response.send("test"))
