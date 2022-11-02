@@ -58,29 +58,71 @@ describe('Alert tests', () => {
   });
 
 
-  test('Open 3 alert components', () => {
+    test('Open 3 alert components', (done) => {
 
-    const wrapper1 = shallow(
+      //made 3 alerts
+      const wrapper = shallow(
+        <Alert></Alert>
+      );
 
-      <div>
-      <Alert>AW</Alert>
-      </div>
-    )
-    const wrapper2 = shallow(
-
-      <div>
-      <Alert>AW</Alert>
-      </div>
-    )
-    const wrapper3 = shallow(
-
-      <div>
-      <Alert>AW</Alert>
-      </div>
-    )
+      Alert.danger('nummer1');
+      Alert.danger('nummer2');
+      Alert.danger('nummer3');
 
 
+
+      //check if the three different buttons are here
+      setTimeout(() => {
+        expect(wrapper.containsMatchingElement(
+            <div>
+              <div>
+                nummer1
+                <button></button>
+              </div>
+            </div>
+        )).toEqual(true)
+
+        expect(wrapper.containsMatchingElement(
+          <div>
+            <div>
+              nummer2
+              <button></button>
+            </div>
+          </div>
+      )).toEqual(true)
+
+      expect(wrapper.containsMatchingElement(
+        <div>
+          <div>
+            nummer3
+            <button></button>
+          </div>
+        </div>
+      )).toEqual(true)
+
+        //take away a button by clicking it
+      wrapper.find('button').at(2).simulate('click');
+
+        //expect to find two buttons
+      expect(wrapper.containsMatchingElement(
+        <div>
+          <div>
+            nummer1
+            <button></button>
+          </div>
+        </div>
+      )).toEqual(true)
+
+      expect(wrapper.containsMatchingElement(
+        <div>
+          <div>
+            nummer2
+            <button></button>
+          </div>
+        </div>
+      )).toEqual(true)
+
+    })
+    done();
   })
-
-
 });

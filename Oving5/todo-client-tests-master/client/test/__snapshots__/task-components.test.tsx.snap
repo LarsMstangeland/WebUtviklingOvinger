@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task component tests TaskDetails draws correctly 1`] = `
+<Fragment>
+  <Card
+    title="Task"
+  >
+    <Row>
+      <Column
+        width={2}
+      >
+        Title:
+      </Column>
+      <Column>
+        les leksjon
+      </Column>
+    </Row>
+    <Row>
+      <Column
+        width={2}
+      >
+        Description:
+      </Column>
+      <Column />
+    </Row>
+    <Row>
+      <Column
+        width={2}
+      >
+        Done:
+      </Column>
+      <Column>
+        <FormCheckbox
+          checked={false}
+          disabled={true}
+          onChange={[Function]}
+        />
+      </Column>
+    </Row>
+  </Card>
+  <ButtonSuccess
+    onClick={[Function]}
+  >
+    Edit
+  </ButtonSuccess>
+</Fragment>
+`;
+
+exports[`Task component tests TaskEdit draws correctly 1`] = `
+<Fragment>
+  <Card
+    title="Edit task"
+  >
+    <Row>
+      <Column
+        width={2}
+      >
+        <FormLabel>
+          Title:
+        </FormLabel>
+      </Column>
+      <Column>
+        <FormInput
+          onChange={[Function]}
+          type="text"
+          value="les leksjon"
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column
+        width={2}
+      >
+        <FormLabel>
+          Description:
+        </FormLabel>
+      </Column>
+      <Column>
+        <FormTextarea
+          onChange={[Function]}
+          rows={10}
+          type="text"
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column
+        width={2}
+      >
+        Done:
+      </Column>
+      <Column>
+        <FormCheckbox
+          checked={false}
+          onChange={[Function]}
+        />
+      </Column>
+    </Row>
+  </Card>
+  <Row>
+    <Column>
+      <ButtonSuccess
+        onClick={[Function]}
+      >
+        Save
+      </ButtonSuccess>
+    </Column>
+    <Column
+      right={true}
+    >
+      <ButtonDanger
+        onClick={[Function]}
+      >
+        Delete
+      </ButtonDanger>
+    </Column>
+  </Row>
+</Fragment>
+`;
+
+exports[`Task component tests Tasknew draws correctly 1`] = `
+<Fragment>
+  <Card
+    title="New task"
+  >
+    <Row>
+      <Column
+        width={2}
+      >
+        <FormLabel>
+          Title:
+        </FormLabel>
+      </Column>
+      <Column>
+        <FormInput
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </Column>
+    </Row>
+    <Row>
+      <Column
+        width={2}
+      >
+        <FormLabel>
+          Description:
+        </FormLabel>
+      </Column>
+      <Column>
+        <FormTextarea
+          onChange={[Function]}
+          rows={10}
+          value=""
+        />
+      </Column>
+    </Row>
+  </Card>
+  <ButtonSuccess
+    onClick={[Function]}
+  >
+    Create
+  </ButtonSuccess>
+</Fragment>
+`;

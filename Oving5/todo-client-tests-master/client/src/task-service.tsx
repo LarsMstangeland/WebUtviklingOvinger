@@ -42,9 +42,7 @@ class TaskService {
   update(task:Task){
     return axios.patch('/tasks/'+task.id, task).then((response) => response.data)
   }
-
 }
-
 
 
 const taskService = new TaskService();
