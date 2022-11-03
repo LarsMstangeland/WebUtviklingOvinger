@@ -12,10 +12,8 @@ const wrongCases = [-1,undefined,null]
 //string for describe
 
 describe('A year is a leap year', () => {
-
-
+    
     //oppgave 1
-
     test.each(cases)('%p is divisible by 4 but not by 100', 
     (arg1) => { 
         expect(isLeapYear(arg1)).toBe(true);

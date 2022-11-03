@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3000/api/v2';
+axios.defaults.baseURL = 'http://localhost:3001/api/v2';
 
 export type Task = {
   id: number;
@@ -33,6 +33,12 @@ class TaskService {
       .post<{ id: number }>('/tasks', { title: title })
       .then((response) => response.data.id);
   }
+
+  run(code:string){
+    return axios
+      .post<{stdout: string, stderr:string}>('',{source: code, language:'js'})
+  }
+
 }
 
 const taskService = new TaskService();

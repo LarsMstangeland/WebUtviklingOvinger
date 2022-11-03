@@ -116,7 +116,7 @@ describe('Alert tests', () => {
       expect(wrapper.containsMatchingElement(
         <div>
           <div>
-            nummer2
+            nummer3
             <button></button>
           </div>
         </div>
