@@ -1,0 +1,78 @@
+Bruker selv github, ble derfor vanskelig å anvende gitlab sin C/I, 
+men testet dette ved å bruke gitlab på et annet prosjekt og 
+sjekket svaret opp mot lf, virket som det gitt greit
+
+
+Image: node:node
+
+
+variables:
+  # Configure server/src/mysql-pool.ts
+  MYSQL_HOST: localhost
+  MYSQL_USER: test
+  MYSQL_PASSWORD: test
+  MYSQL_DATABASE: test
+
+stages:
+	-build
+	-test
+
+install:
+	stage: build
+	script:
+		-cd server
+		-npm install
+		-cd ..
+		-cd client
+		-npm install
+		-cd ..
+	artifacts:
+		paths:
+			-server/node_modules
+      -client/node_modules
+
+
+
+prettier:
+	stage: test
+	script:
+	- cd server
+	- ./node_modules/ .bin/prettier --check src/* test/*
+	- cd ..
+	- cd client
+	- ./node_modules/ .bin/prettier --check src/* test/*
+
+
+
+typescript:
+	stage: test
+	script:
+	- ./node_modules/ .bin/tsc -noEmit --skipLibCheck
+  - cd ..
+	- cd client
+  - ./node_modules/ .bin/tsc -noEmit --skipLibCheck
+
+test:
+  stage: test
+  script:
+    - apt-get update
+    - apt-get -y upgrade
+    - apt-get -y install default-mysql-server
+    - service mariadb start
+    # Create database
+    - mysqladmin create $MYSQL_DATABASE
+    # Create database table
+    - >
+      echo "CREATE TABLE Tasks (id INT NOT NULL AUTO_INCREMENT, title TEXT NOT NULL, done BOOL
+      DEFAULT false, PRIMARY KEY(id));" | mysql $MYSQL_DATABASE
+    # Add test user and grant access
+    - >
+      echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL PRIVILEGES ON
+      $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES;" | mysql
+    # Workaround for mysql2
+    - export MYSQL_HOST=127.0.0.1
+
+    - cd server
+    - touch test/config.ts
+    - cd ..
+    - cd client

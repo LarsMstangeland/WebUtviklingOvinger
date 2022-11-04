@@ -43,6 +43,7 @@ class TaskService {
   create(title: string, description: string) {
     return new Promise<number>((resolve, reject) => {
       pool.query('INSERT INTO Tasks SET title=?, description=?', [title,description], (error, results: ResultSetHeader) => {
+        
         if (error) return reject(error);
         resolve(results.insertId);
       });
