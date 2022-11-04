@@ -130,7 +130,7 @@ export class TaskEdit extends Component<{ match: { params: { id: number } } }> {
         <Row>
           <Column>
             <Button.Success onClick={() => 
-              taskService.update(this.task).then(() => history.push("/tasks"))
+              taskService.update(this.task).then(() => history.push("/tasks"+this.task.id))
             }
             
             >Save</Button.Success>
