@@ -58,12 +58,10 @@ router.post('', (request, response) => {
 */
 
 
-//utilized the solution sheet to improve my code, unfortunately I still got a error message saying
-// I didnt have access to the node docker image.
-//I do think I have learned alot of new stuff about docker, hopefully this is enough to get approved
-//will anyways visit a student assistant for more help :)
+//utilized the solution sheet to improve my code
 
-router.post('', (request, res) => {
+router.post('', (request, response) => {
+
   if (request.body && typeof request.body.language == 'string' && typeof request.body.source == 'string') {
     let stdout = '';
     let stderr = '';
@@ -71,22 +69,21 @@ router.post('', (request, res) => {
       'run',
       '--rm',
       'node',
+      'node',
       '-e',
-      request.body.code,
+      request.body.source,
     ]);
     process.stdout.on('data', (data) => {
       stdout += data;
-      console.log(stdout)
     });
     process.stderr.on('data', (data) => {
       stderr += data;
-      console.log(stderr)
+    });
 
-    });
     process.on('close', () => {
-      res.send({stdout: stdout, stderr: stderr });
+      response.send({stdout: stdout, stderr: stderr });
     });
-  } else res.status(400).send('error');
+  } else response.status(400).send('opsidaisy');
 });
 
 router.delete('/tasks/:id', (request, response) => {
